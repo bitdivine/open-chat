@@ -20,6 +20,7 @@ import { sha256 } from "js-sha256";
 import dotenv from "dotenv";
 import replace from "@rollup/plugin-replace";
 import fs from "fs-extra";
+import os from "os";
 import path from "path";
 import rimraf from "rimraf";
 import { fileURLToPath } from "url";
@@ -35,8 +36,24 @@ console.log("DFX_NETWORK: ", dfxNetwork);
 if (dfxNetwork) {
     const dfxJsonPath = path.join(dirname, "../..", "dfx.json");
     const dfxJson = JSON.parse(fs.readFileSync(dfxJsonPath));
+    const networksConfig = Object.assign({}, (() => {
+	    // Optional global network config - lowest priority.
+      try {
+	      const networksPath = os.homedir() + "/.config/dfx/networks.json";
+	      return JSON.parse(fs.readFileSync(networksPath));
+      } catch(err) {
+	      console.error("Failed to read global network config:", err);
+	      return {};
+      }
+    })(), dfxJson["networks"] || {} // Network config in local dfx.json - higher priority.
+    );
+    const networkConfig = networksConfig[dfxNetwork];
+	console.log(`networksConfig: ${JSON.stringify(networksConfig)}`);
+	if (!networksConfig) {
+throw new Error(`Network '${dfxNetwork}' not defined.`);
+	}
     const canisterPath =
-        dfxJson["networks"][dfxNetwork]["type"] === "persistent"
+        networkConfig["type"] === "persistent"
             ? path.join(dirname, "../..", "canister_ids.json")
             : path.join(dirname, "../..", ".dfx", dfxNetwork, "canister_ids.json");
 
