@@ -43,6 +43,11 @@
             "dependsOn": ["^build"]
         },
 
+	"build:utopia": {
+            "outputs": ["lib/**", "build/**"],
+            "dependsOn": ["^build"]
+        },
+
         "build:ci": {
             "outputs": ["lib/**", "build/**"],
             "dependsOn": ["build:prod", "typecheck", "validate", "lint", "test:prod"]
