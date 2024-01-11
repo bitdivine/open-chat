@@ -31,7 +31,7 @@ dotenv.config({ path: path.join(dirname, "../.env") });
 
 const dfxNetwork = process.env.DFX_NETWORK;
 
-console.log("DFX_NETWORK: ", dfxNetwork);
+console.log("ENV VARS: ", process.env);
 
 if (dfxNetwork) {
     const dfxJsonPath = path.join(dirname, "../..", "dfx.json");
