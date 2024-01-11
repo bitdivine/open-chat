@@ -2,6 +2,7 @@
     "$schema": "https://turborepo.org/schema.json",
     "globalEnv": [
         "DFX_NETWORK",
+	"INTERNET_IDENTITY_URL",
         "NODE_ENV",
         "USERGEEK_APIKEY",
         "METERED_APIKEY",
