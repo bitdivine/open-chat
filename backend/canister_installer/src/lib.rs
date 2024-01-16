@@ -37,17 +37,17 @@ async fn install_service_canisters_impl(
         set_controllers(
             management_canister,
             &canister_ids.local_user_index,
-            vec![canister_ids.user_index],
+            vec![canister_ids.user_index, principal],
         ),
         set_controllers(
             management_canister,
             &canister_ids.local_group_index,
-            vec![canister_ids.group_index],
+            vec![canister_ids.group_index, principal],
         ),
         set_controllers(
             management_canister,
             &canister_ids.notifications,
-            vec![canister_ids.notifications_index],
+            vec![canister_ids.notifications_index, principal],
         ),
     ])
     .await;
