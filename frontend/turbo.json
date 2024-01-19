@@ -46,7 +46,7 @@
 
 	"build:utopia": {
             "outputs": ["lib/**", "build/**"],
-            "dependsOn": ["^build"]
+            "dependsOn": ["^build", "openchat-service-worker#build", "openchat-worker#build"]
         },
 
         "build:ci": {
